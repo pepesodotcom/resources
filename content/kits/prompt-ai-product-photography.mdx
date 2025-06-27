@@ -1,0 +1,106 @@
+---
+title: "Prompts: AI Product Photography"
+description: "Prompts and resources to implement an AI Product Photography"
+date: "2024-06-06"
+author: "Sam"
+tags: ["workflow", "frontend", "n8n"]
+---
+
+# Prompts: AI Product Photography
+
+### System Message: AI Agent
+
+```python
+You are a luxury product photographer and stylist.
+Your task is to suggest creative visual styling elements for a product launch asset. The product should look clean, minimal, elegant - but it's okay to be bold and attention-grabbing where suitable.
+
+- backgroundTone: must be visually attractive and brand aligned
+- surfaceType: creative but not distracting
+- acceptProp: luxurious and elegant (avoid droplets or overused props)
+- lighting: varies by mood or asset
+- overlayText: a very short yet attractive copy. (it should be a cta, a launch offer, a normal text, e.g. "Let the world see it"). Avoid using the tagline, make it sound as if it's coming from a very luxurious setting.
+
+use tasteful elements like marble, linen, satin, ribbon, flowers, sculptural trays, and glass unless mentioned.
+```
+
+### User Message: AI Agent
+
+```jsx
+"idea": {{ $json.body.idea || 'No Instructions provided' }},
+"brandName": {{ $json.body.specifications.brandName }},
+"backgroundStyle": {{ $json.body.specifications.backgroundStyle }},
+"colorTheme": {{ $json.body.specifications.colorTheme }},
+"productPlacement": {{ $json.body.specifications.productPlacement }},
+"typogrpahy": {{ $json.body.specifications.typography }},
+"compositionGuidelines": {{ $json.body.specifications.compositionGuidelines }}
+```
+
+### Structured Output Parser
+
+```python
+{
+  "backgroundTone": "soft blush gradient",
+  "surfaceType": "satin draped cloth",
+  "accentProp": "gold-trimmed ribbon",
+  "lighting": "warm spotlight from the side",
+  "cameraAngle": "30-degree angle",
+  "overlayText": "Glow deeper, shine brighter"
+}
+```
+
+### Code Block
+
+```jsx
+// Get the base64 image string from the previous node
+let base64Image = $('Edit Image').item.binary.attachment.data
+
+// Remove base64 header if it exists
+const matches = base64Image.match(/^data:(.*?);base64,(.*)$/);
+let mimeType = 'image/png';
+if (matches) {
+  mimeType = matches[1];
+  base64Image = matches[2];
+}
+
+// Convert base64 to buffer
+const buffer = Buffer.from(base64Image, 'base64');
+
+// Return the binary data
+return {
+  json: {},
+  binary: {
+    image: await this.helpers.prepareBinaryData(buffer, 'image.png', mimeType)
+  }
+};
+```
+
+### Image Generator Prompt
+
+```jsx
+Create a square (1:1) **photorealistic Instagram Post visual** for a product launch. The provided **hero product image** must remain unaltered and be seamlessly integrated into a stylized, elegant scene. The visual should feel bold, polished, and iconic—setting a premium tone for the entire campaign.
+
+### Composition & Scene Setup:
+
+* Use a {{ $('AI Agent').item.json.output.backgroundTone }} background that evokes **natural elegance**, incorporating textures such as **fabric folds**, **water ripples**, or **gradient light** to bring subtle depth.
+* Position the product on a refined {{ $('AI Agent').item.json.output.surfaceType }} such as **sculpted glass**, **stone**, or **satin**, reflecting premium craftsmanship.
+* Introduce a single, complementary accent prop like a {{ $('AI Agent').item.json.output.accentProp }} that **enhances** the story without creating visual clutter.
+
+### Visual & Camera Direction:
+
+* Apply {{ $('AI Agent').item.json.output.lighting }} to sculpt the scene and add dimensionality.
+* Capture the composition from a {{ $('AI Agent').item.json.output.cameraAngle }} to create visual interest and subtle depth, while keeping the product clearly in focus.
+
+### Brand & Style Guidelines:
+
+* Color palette: {{ $('On form submission').item.json.colorTheme }}
+* Typography style (for reference only): {{ $('On form submission').item.json.typography }}
+* Product placement: {{ $('On form submission').item.json.productPlacement }}
+* Composition: {{ $('On form submission').item.json.compositionGuidelines }}
+
+### Text & Overlay:
+
+Optionally include the overlay text: **"{{ $('AI Agent').item.json.output.overlayText }}"**
+Set it in a **small, refined font**, placed harmoniously in the layout—clearly legible, but never obscuring the product. The type should complement the visual without overpowering it.
+
+This should be a **clean, emotionally resonant product image**—worthy of a luxury brand’s Instagram feed or print campaign. Bold yet refined. Brand-first, visually iconic.
+```
