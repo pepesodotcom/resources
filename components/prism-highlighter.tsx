@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import Prism from 'prismjs'
-import 'prismjs/themes/prism-tomorrow.css'
+import 'prismjs/themes/prism.css'; // Light theme
 import 'prismjs/components/prism-javascript'
 import 'prismjs/components/prism-typescript'
 import 'prismjs/components/prism-jsx'

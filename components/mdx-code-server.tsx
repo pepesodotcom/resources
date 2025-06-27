@@ -24,12 +24,12 @@ export function Code({ children, className, ...props }: CodeProps) {
   
   return (
     <div className="relative my-6">
-      <div className="flex items-center justify-between px-4 py-2 bg-gray-800 text-gray-300 text-sm rounded-t-lg border border-gray-700">
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-100 text-gray-300 text-sm rounded-t-lg border border-gray-300">
         <span className="font-mono">{language}</span>
         <CopyButton text={textContent} />
       </div>
       <pre 
-        className={`${className} !mt-0 !rounded-t-none bg-gray-900 text-gray-100 p-4 font-mono text-sm leading-relaxed`} 
+        className={`${className} !mt-0 !rounded-t-none bg-gray-100 text-primary p-4 font-mono text-sm leading-relaxed`} 
         style={{ 
           whiteSpace: 'pre', 
           overflowX: 'auto',
@@ -37,7 +37,7 @@ export function Code({ children, className, ...props }: CodeProps) {
           MozTabSize: 2,
           OTabSize: 2,
           fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-          background: '#111827 !important'
+          background: '#fff !important'
         }}
         {...props}
       >

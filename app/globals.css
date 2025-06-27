@@ -167,21 +167,31 @@
   }
 
   /* Code blocks */
-  .mdx-content pre {
-    @apply bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto mb-6 border;
-    font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
-    font-size: 0.875rem;
-    line-height: 1.6;
+  
+.mdx-content pre {
+  @apply bg-gray-100 text-gray-800 rounded-lg overflow-x-auto border border-gray-300;
+  font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  padding: 1rem;
+}
+
+  .mdx-content pre code {
+    @apply bg-transparent text-inherit p-0;
+    font-family: inherit;
   }
+
+  .mdx-content :not(pre) > code {
+    @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-sm;
+    font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+}
 
   .mdx-content code {
     @apply bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm;
     font-family: 'JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', monospace;
   }
 
-  .mdx-content pre code {
-    @apply bg-transparent text-gray-100 p-0;
-  }
+
 
   /* Blockquotes */
   .mdx-content blockquote {
@@ -288,7 +298,7 @@
 
 /* Custom code block styles */
 .mdx-content pre {
-  @apply bg-gray-900 text-gray-100 rounded-lg overflow-x-auto border border-gray-700;
+  @apply bg-gray-900 text-gray-100 rounded-lg overflow-x-auto border border-gray-300;
   font-family: 'Fira Code', 'Monaco', 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   font-size: 0.875rem;
   line-height: 1.6;
@@ -318,7 +328,7 @@ pre[class*="language-"] {
 }
 
 .token.punctuation {
-  color: #d1d5db !important; /* gray-300 */
+  color: #374151 !important; /* gray-700 */
 }
 
 .token.property,
@@ -326,12 +336,12 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  color: #f87171 !important; /* red-400 */
+  color: #b91c1c !important; /* red-700 */
 }
 
 .token.boolean,
 .token.number {
-  color: #60a5fa !important; /* blue-400 */
+  color: #2563eb !important; /* blue-600 */
 }
 
 .token.selector,
@@ -340,7 +350,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  color: #4ade80 !important; /* green-400 */
+  color: #15803d !important; /* green-700 */
 }
 
 .token.operator,
@@ -349,24 +359,25 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-  color: #facc15 !important; /* yellow-400 */
+  color: #ca8a04 !important; /* yellow-600 */
 }
 
 .token.atrule,
 .token.attr-value,
 .token.function,
 .token.class-name {
-  color: #a78bfa !important; /* purple-400 */
+  color: #7c3aed !important; /* purple-600 */
 }
 
 .token.keyword {
-  color: #f472b6 !important; /* pink-400 */
+  color: #db2777 !important; /* pink-600 */
 }
 
 .token.regex,
 .token.important {
-  color: #fb923c !important; /* orange-400 */
+  color: #ea580c !important; /* orange-600 */
 }
+
 
 /* TypeScript specific tokens */
 .token.type-annotation,
