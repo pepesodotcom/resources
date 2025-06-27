@@ -314,11 +314,11 @@ pre[class*="language-"] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-  @apply text-gray-500;
+  color: #6b7280 !important; /* gray-500 */
 }
 
 .token.punctuation {
-  @apply text-gray-300;
+  color: #d1d5db !important; /* gray-300 */
 }
 
 .token.property,
@@ -326,12 +326,12 @@ pre[class*="language-"] {
 .token.constant,
 .token.symbol,
 .token.deleted {
-  @apply text-red-400;
+  color: #f87171 !important; /* red-400 */
 }
 
 .token.boolean,
 .token.number {
-  @apply text-blue-400;
+  color: #60a5fa !important; /* blue-400 */
 }
 
 .token.selector,
@@ -340,7 +340,7 @@ pre[class*="language-"] {
 .token.char,
 .token.builtin,
 .token.inserted {
-  @apply text-green-400;
+  color: #4ade80 !important; /* green-400 */
 }
 
 .token.operator,
@@ -349,21 +349,95 @@ pre[class*="language-"] {
 .language-css .token.string,
 .style .token.string,
 .token.variable {
-  @apply text-yellow-400;
+  color: #facc15 !important; /* yellow-400 */
 }
 
 .token.atrule,
 .token.attr-value,
 .token.function,
 .token.class-name {
-  @apply text-purple-400;
+  color: #a78bfa !important; /* purple-400 */
 }
 
 .token.keyword {
-  @apply text-pink-400;
+  color: #f472b6 !important; /* pink-400 */
 }
 
 .token.regex,
 .token.important {
-  @apply text-orange-400;
+  color: #fb923c !important; /* orange-400 */
+}
+
+/* TypeScript specific tokens */
+.token.type-annotation,
+.token.type,
+.token.interface,
+.token.generic {
+  color: #60a5fa !important; /* blue-400 for types */
+}
+
+/* Make sure all tokens are visible on dark background */
+.token {
+  color: #e5e7eb !important; /* Default to gray-200 for any unspecified tokens */
+}
+
+/* Force whitespace preservation for code blocks */
+.mdx-content pre,
+.mdx-content pre code,
+pre[class*="language-"],
+pre[class*="language-"] code {
+  white-space: pre !important;
+  tab-size: 2 !important;
+  -moz-tab-size: 2 !important;
+  -o-tab-size: 2 !important;
+}
+
+/* Ensure proper line breaks and indentation */
+.mdx-content pre {
+  overflow-x: auto !important;
+  word-wrap: normal !important;
+  word-break: normal !important;
+}
+
+/* Override Prism theme backgrounds */
+.mdx-content pre[class*="language-"],
+.mdx-content pre[class*="language-"] code,
+.mdx-content code[class*="language-"],
+pre[class*="language-"],
+pre[class*="language-"] code,
+code[class*="language-"] {
+  background: transparent !important;
+}
+
+/* Ensure tokens don't have background colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata,
+.token.punctuation,
+.token.property,
+.token.tag,
+.token.constant,
+.token.symbol,
+.token.deleted,
+.token.boolean,
+.token.number,
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted,
+.token.operator,
+.token.entity,
+.token.url,
+.token.variable,
+.token.atrule,
+.token.attr-value,
+.token.function,
+.token.class-name,
+.token.keyword,
+.token.regex,
+.token.important {
+  background: transparent !important;
 }

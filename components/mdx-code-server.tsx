@@ -28,8 +28,31 @@ export function Code({ children, className, ...props }: CodeProps) {
         <span className="font-mono">{language}</span>
         <CopyButton text={textContent} />
       </div>
-      <pre className={`${className} !mt-0 !rounded-t-none`} {...props}>
-        <code className={className}>{children}</code>
+      <pre 
+        className={`${className} !mt-0 !rounded-t-none bg-gray-900 text-gray-100 p-4 font-mono text-sm leading-relaxed`} 
+        style={{ 
+          whiteSpace: 'pre', 
+          overflowX: 'auto',
+          tabSize: 2,
+          MozTabSize: 2,
+          OTabSize: 2,
+          fontFamily: 'ui-monospace, SFMono-Regular, "SF Mono", Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+          background: '#111827 !important'
+        }}
+        {...props}
+      >
+        <code 
+          className={className}
+          style={{ 
+            whiteSpace: 'pre',
+            display: 'block',
+            fontFamily: 'inherit',
+            background: 'transparent !important',
+            color: '#e5e7eb' // Default light color for dark background
+          }}
+        >
+          {children}
+        </code>
       </pre>
     </div>
   )
