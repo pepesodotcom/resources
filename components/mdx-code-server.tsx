@@ -25,7 +25,7 @@ export function Code({ children, className, ...props }: CodeProps) {
   return (
     <div className="relative my-6">
       <div className="flex items-center justify-between px-4 py-2 bg-gray-100 text-gray-300 text-sm rounded-t-lg border border-gray-300">
-        <span className="font-mono">{language}</span>
+        <span className="font-mono">{language || "bash"}</span>
         <CopyButton text={textContent} />
       </div>
       <pre 
