@@ -1,0 +1,202 @@
+---
+title: "Prompts: AI Product Photography"
+description: "Prompts and resources to implement an AI Product Photography"
+date: "2024-06-06"
+author: "Sam"
+tags: ["workflow", "frontend", "n8n"]
+---
+
+# Setting Up n8n – Different Methods Explained
+
+**Welcome!** In this guide, we’ll walk you through how to set up [n8n](https://n8n.io), the powerful open-source workflow automation tool that connects over 400+ services and enables powerful automation with a visual interface and AI features.
+
+Whether you're a developer, business owner, or just want to automate repetitive tasks, this guide covers **five different ways** to get started with n8n—so you can pick the setup that works best for you.
+
+---
+
+## Overview of Setup Methods
+
+There are several ways to install and run n8n, each with its own strengths:
+
+* **Local Installation (npm)** – Quick setup for testing on your own machine.
+* **Docker** – Isolated, consistent environments for container users.
+* **Docker Compose** – Ideal for production with data persistence and database support.
+* **n8n Cloud** – Easiest option, fully managed with a free trial.
+* **Self-Hosting on AWS (EC2 or Lightsail)** – Best for scalable, production-grade deployments.
+
+Let’s dive into each one step-by-step.
+
+---
+
+## 1. Local Installation Using npm
+
+**Great for development or quick testing.**
+
+### Steps:
+
+1. **Install Node.js** (version 18+):
+   Download it from [nodejs.org](https://nodejs.org).
+
+2. **Install n8n globally**:
+
+   ```bash
+   npm install n8n -g
+   ```
+
+3. **Start n8n**:
+
+   ```bash
+   n8n start
+   ```
+
+4. **Access the interface**:
+   Open [http://localhost:5678](http://localhost:5678)
+
+### Optional: Enable webhooks (for development)
+
+```bash
+n8n start --tunnel
+```
+
+> ⚠️ Not recommended for production due to lack of persistence.
+
+---
+
+## 2. Running n8n with Docker
+
+**Ideal for a clean, isolated containerized setup.**
+
+### Steps:
+
+1. **Install Docker** from [docker.com](https://www.docker.com).
+
+2. **Create a Docker volume**:
+
+   ```bash
+   docker volume create n8n_data
+   ```
+
+3. **Run the n8n container**:
+
+   ```bash
+   docker run -it --rm --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n docker.n8n.io/n8nio/n8n
+   ```
+
+4. **Access n8n**:
+   Open [http://localhost:5678](http://localhost:5678)
+
+> Your workflows persist thanks to the volume.
+
+---
+
+## 3. Running n8n with Docker Compose
+
+**Perfect for production use, with persistent data and more flexibility.**
+
+### Prerequisites:
+
+* Docker
+* Docker Compose
+
+### Example `docker-compose.yml`:
+
+```yaml
+version: '3'
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    ports:
+      - 5678:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=your_secure_password
+volumes:
+  n8n_data:
+```
+
+### Commands:
+
+1. Save the file as `docker-compose.yml`.
+
+2. Run the container in the background:
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. Open [http://localhost:5678](http://localhost:5678)
+
+> You can secure it with basic auth, and extend it with databases like PostgreSQL. See [n8n-hosting repo](https://github.com/n8n-io/n8n) for more configs.
+
+---
+
+## 4. Using n8n Cloud
+
+**Zero setup, hosted by the creators of n8n (PAID).**
+
+### Steps:
+
+1. Go to [n8n.io](https://n8n.io) and **sign up**.
+2. Choose a plan — **free trial available**.
+3. Access your instance through the web interface.
+
+> ⚡ Perfect for beginners or anyone avoiding infrastructure management.
+> Slightly less customizable than self-hosting.
+
+---
+
+## 5. Self-Hosting on AWS (EC2 or Lightsail)
+
+**Best for full control and scalability.**
+
+### Option A: Using AWS Lightsail
+
+1. Log in to [AWS Lightsail](https://lightsail.aws.amazon.com/).
+2. Click **“Create Instance”** and select **Ubuntu**.
+3. Choose a plan (e.g., 1 GB RAM or more).
+4. Set up **SSH keys**.
+5. Connect to your instance via SSH.
+6. Install Docker and Docker Compose:
+
+   ```bash
+   sudo apt update
+   sudo apt install -y docker.io docker-compose
+   sudo systemctl enable --now docker
+   ```
+7. Follow the Docker Compose steps above to deploy n8n.
+
+---
+
+### Option B: Using AWS EC2
+
+1. Launch an EC2 instance with Ubuntu or Amazon Linux.
+2. Open port **5678** in the **Security Group**.
+3. SSH into the instance.
+4. Install Docker + Docker Compose.
+5. Use the same Docker Compose setup as above.
+
+>> Advanced users can configure HTTPS using **Nginx** and secure with authentication. Here's a guide to [Self hosting with EC2](https://youtu.be/G8EN8vCrZsM)
+
+---
+
+### Recap: Which Method Should You Choose?
+
+| Method                | Best For                                       |
+| --------------------- | ---------------------------------------------- |
+| `npm`                 | Local development & testing                    |
+| `Docker`              | Containerized environments                     |
+| `Docker Compose`      | Production use with persistence                |
+| `n8n Cloud`           | Easiest option, no infrastructure required     |
+| `AWS` (EC2/Lightsail) | Scalable, secure, production-grade deployments |
+
+---
+
+## Final Thoughts
+
+n8n’s flexibility makes it a fantastic choice for workflow automation, whether you're just experimenting or running complex integrations in production. No matter how you choose to deploy it, always ensure:
+
+* **Authentication is enabled**
+* **HTTPS is configured for production**
