@@ -48,7 +48,7 @@ export function Code({ children, className, ...props }: CodeProps) {
             display: 'block',
             fontFamily: 'inherit',
             background: 'transparent !important',
-            color: '#e5e7eb' // Default light color for dark background
+            color: '#fff' // Default light color for dark background
           }}
         >
           {children}
